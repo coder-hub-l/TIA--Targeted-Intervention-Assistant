@@ -14,7 +14,7 @@ async function sendMessage() {
 
     try {
         // Fetch API - Talking to your Python Backend
-        const response = await fetch("http://127.0.0.1:8000/chat", {
+        const response = await fetch("https://opensoft-bot.onrender.com/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
