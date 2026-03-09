@@ -8,9 +8,9 @@
 
 ## Features
 <ol>  
-<l1>1.Dynamic Context Injection (RAG-lite): Intercepts user queries and injects employee-specific predictive HR data (SHAP values) directly into the Llama-3 system prompt before generation.</l1>
-<l2>2.Decoupled Client-Server Architecture: A lightweight vanilla JavaScript/CSS frontend communicates asynchronously with a scalable Python FastAPI backend via REST endpoints.</l2>
-<l3>3.Lightning-Fast Inference: Utilizes the Groq API to run the Llama-3-8b foundation model at near-instant speeds for real-time conversational flow.</l3>
-<l4>4.Secure Data Handling: Employs strict CORS middleware and environment variables (.env) to ensure API keys and backend logic remain completely hidden from the client side.</l4>
-<l5>5.Automated Data Parsing: A custom Python data engine uses Pandas to parse complex, tabular machine learning output into human-readable narrative context on server startup.</l5>
+<li>Dynamic Context Injection (RAG-lite): Intercepts user queries and injects employee-specific predictive HR data (SHAP values) directly into the Llama-3 system prompt before generation.</li>
+<li>Decoupled Client-Server Architecture: A lightweight vanilla JavaScript/CSS frontend communicates asynchronously with a scalable Python FastAPI backend via REST endpoints.</li>
+<li>Lightning-Fast Inference: Utilizes the Groq API to run the Llama-3-8b foundation model at near-instant speeds for real-time conversational flow.</li>
+<li>Secure Data Handling: Employs strict CORS middleware and environment variables (.env) to ensure API keys and backend logic remain completely hidden from the client side.</li>
+<li>Automated Data Parsing: A custom Python data engine uses Pandas to parse complex, tabular machine learning output into human-readable narrative context on server startup.</li>
 </ol>
