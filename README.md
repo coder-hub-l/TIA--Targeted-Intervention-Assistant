@@ -81,4 +81,4 @@ Because the frontend is pure HTML/CSS/JS, you don't need a complex Node.js serve
 ---
 
 ## 🏆 Hackathon Context
-This project was engineered as a competitive submission for the Open Soft GC at IIT Kharagpur, proudly representing the Pt. Madan Mohan Malaviya Hall of Residence. It was designed to showcase the integration of predictive analytics with generative AI to solve real-world corporate retention challenges.
+This project was engineered as a competitive submission for the Preparation of Open Soft GC at IIT Kharagpur organised by the Pt. Madan Mohan Malaviya Hall of Residence and Deloitte. It was designed to showcase the integration of predictive analytics with generative AI to solve real-world corporate retention challenges .
