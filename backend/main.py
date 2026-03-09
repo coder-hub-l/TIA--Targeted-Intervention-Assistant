@@ -1,7 +1,10 @@
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from groq import Groq
+from dotenv import load_dotenv
+
 from data_engine import load_and_parse_data
 
 app = FastAPI()
@@ -16,7 +19,12 @@ app.add_middleware(CORSMiddleware,
 # Load data into memory when server starts  
 # In a real app, you might use a database, but this is perfect for the hackathon
 EMPLOYEE_DB = load_and_parse_data()
-groq_client = Groq(api_key="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")
+
+api_key = os.getenv("GROQ_API_KEY")
+if not api_key:
+    raise ValueError("API Key not found! Check your .env file.")
+
+groq_client = Groq(api_key=api_key)
 class ChatRequest (BaseModel):
    employee_id : str
    message : str
