@@ -19,7 +19,7 @@ def load_and_parse_data():
     try:
         df = pd.read_csv(csv_path)
     except FileNotFoundError:
-        print(f"Error: File not found at {csv_path}}")
+        print(f"Error: File not found at {csv_path}")
         return {}
 
     # 1. Filter: Only get employees marked for contact (is_selected = TRUE)
