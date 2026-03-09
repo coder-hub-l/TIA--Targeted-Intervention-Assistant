@@ -5,7 +5,8 @@
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 <p>TIA is a context-aware HR chatbot designed to understand employee sentiment using the data a company already collects. By injecting predictive machine learning data (SHAP values) into a dynamic Llama-3 pipeline, TIA drives personalized conversations to uncover why employees want to leave and helps retain top talent.</p>
-**## Features**
+
+## Features
   
 1.Dynamic Context Injection (RAG-lite): Intercepts user queries and injects employee-specific predictive HR data (SHAP values) directly into the Llama-3 system prompt before generation.
 2.Decoupled Client-Server Architecture: A lightweight vanilla JavaScript/CSS frontend communicates asynchronously with a scalable Python FastAPI backend via REST endpoints.
