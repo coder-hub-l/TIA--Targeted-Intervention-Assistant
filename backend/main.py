@@ -1,28 +1,66 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from groq import Groq
 from data_engine import load_and_parse_data
 
 app = FastAPI()
+app.add_middleware(CORSMiddleware,
+                    allow_origins=['*'],
+                    allow_credentials=['*'],
+                    allow_methods=['*'],
+                    allow_headers=['*'],
+                    )
 
-# Load data into memory when server starts
+
+# Load data into memory when server starts  
 # In a real app, you might use a database, but this is perfect for the hackathon
 EMPLOYEE_DB = load_and_parse_data()
+groq_client = Groq(api_key="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")
+class ChatRequest (BaseModel):
+   employee_id : str
+   message : str
 
 @app.get("/")
-def read_root():
-    return {"status": "Server is running", "target_employees": len(EMPLOYEE_DB)}
+def home():
+    return {"status" : "Aive",
+            "Targets loaded" : f"{len(EMPLOYEE_DB)}"} 
 
-@app.get("/employee/{emp_id}")
-def get_employee_context(emp_id: str):
-    """
-    Frontend calls this to know what to talk about.
-    """
-    if emp_id not in EMPLOYEE_DB:
-        raise HTTPException(status_code=404, detail="Employee not found or not selected for contact")
+
+@app.post("/chat")
+def chat_with_bot(request : ChatRequest):
+        emp_id = request.employee_id
+        usr_msg = request.message
+        top_issues = EMPLOYEE_DB[request.employee_id]
+
+        prompt = f"""
+    You are an empathetic HR Assistant for Deloitte named TIA. 
+    You are talking to an employee who might be feeling disengaged.
+    According to our internal data, their top areas of concern are: {', '.join(top_issues)}.
     
-    return {
-        "employee_id": emp_id,
-        "top_issues": EMPLOYEE_DB[emp_id],
-        "suggested_opener": f"I noticed some trends regarding {EMPLOYEE_DB[emp_id][0].replace('_', ' ')}. How are you feeling about that?"
-    }
+    Rules:
+    1. Be warm, conversational, and supportive. Keep it brief (2-3 sentences max).
+    2. Do NOT mention the raw data, "SHAP values", or the specific feature names directly.
+    3. Gently steer the conversation to ask how they are feeling about those specific areas of concern.
+    
+    The employee just said: "{usr_msg}"
+    
+    Respond directly to the employee:"""
+        
+    
+        try:
+            chat_completion=groq_client.chat.completions.create(
+                messages = [ {"role" : "system","content" : prompt},
+                              {"role" : "user"  , "content" : usr_msg}
+                            ],
+                model="llama-3.1-8b-instant"
+                            )
+            response = chat_completion.choices[0].message.content
+            
+            return {"bot_response": response}
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+    
+
 
 # To run: uvicorn main:app --reload
