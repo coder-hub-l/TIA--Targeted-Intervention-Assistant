@@ -1,15 +1,23 @@
 import pandas as pd
+import os
 
 # Path to your CSV file
-CSV_PATH = r"C:\Users\DELL\Documents\GitHub\opensoft-bot\data\engagement_results.csv"
+# CSV_PATH = r"C:\Users\DELL\Documents\GitHub\opensoft-bot\data\engagement_results.csv"
+
+
 
 def load_and_parse_data():
-    """
-    Reads CSV, filters for 'is_selected=TRUE', and parses SHAP values.
-    Returns a dictionary: { "EMP123": ["Issue_A", "Issue_B"] }
-    """
+
+
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # 2. Dynamically build the path: Go up one level (..), then into 'data'
+    csv_path = os.path.join(current_dir, "..", "data", "engagement_results.csv")
+    
+    # 3. Read the CSV using the dynamic path
+    
     try:
-        df = pd.read_csv(CSV_PATH)
+        df = pd.read_csv(csv_path)
     except FileNotFoundError:
         print(f"Error: File not found at {CSV_PATH}")
         return {}
