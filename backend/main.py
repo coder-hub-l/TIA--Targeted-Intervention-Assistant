@@ -20,18 +20,17 @@ app.add_middleware(CORSMiddleware,
 # In a real app, you might use a database, but this is perfect for the hackathon
 EMPLOYEE_DB = load_and_parse_data()
 
-api_key = os.getenv("GROQ_API_KEY")
-if not api_key:
-    raise ValueError("API Key not found! Check your .env file.")
-
+api_key = os.getenv("GROQ_API_KEY", "dummy_key_for_startup")
 groq_client = Groq(api_key=api_key)
+
 class ChatRequest (BaseModel):
    employee_id : str
    message : str
 
 @app.get("/")
+@app.get("/health")
 def home():
-    return {"status" : "Aive",
+    return {"status" : "healthy",
             "Targets loaded" : f"{len(EMPLOYEE_DB)}"} 
 
 
